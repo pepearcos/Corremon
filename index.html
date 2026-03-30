@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Corremón 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0a0a0a;color:#e5e7eb;min-height:100vh}
+.wrap{max-width:480px;margin:0 auto;padding:0 16px 40px}
+header{text-align:center;padding:28px 0 20px;border-bottom:1px solid #1f2937}
+.logo{font-size:26px;font-weight:700;color:#f9fafb;letter-spacing:-0.5px}
+.logo span{color:#e2602a}
+.tagline{font-size:13px;color:#6b7280;margin-top:4px}
+.tabs{display:flex;border-bottom:1px solid #1f2937}
+.tab{flex:1;padding:14px 0;font-size:14px;color:#6b7280;text-align:center;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none}
+.tab.active{color:#e2602a;border-bottom-color:#e2602a;font-weight:500}
+.section{display:none;padding-top:20px}
+.section.active{display:block}
+.week-pill{display:inline-block;background:#111827;border:1px solid #1f2937;border-radius:20px;font-size:12px;color:#9ca3af;padding:4px 12px;margin-bottom:18px}
+.podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px}
+.p-card{background:#111827;border:1px solid #1f2937;border-radius:14px;padding:16px 8px 14px;text-align:center}
+.p-card.rank1{border-top:2px solid #e2602a}
+.p-card.rank2{border-top:2px solid #6b7280}
+.p-card.rank3{border-top:2px solid #78350f}
+.p-medal{font-size:20px;margin-bottom:6px}
+.p-name{font-size:13px;font-weight:600;color:#f3f4f6;margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p-pts{font-size:22px;font-weight:700;color:#e2602a;line-height:1}
+.p-pts-label{font-size:11px;color:#6b7280;margin-top:2px}
+.p-detail{font-size:11px;color:#6b7280;margin-top:10px;line-height:1.6;border-top:1px solid #1f2937;padding-top:8px}
+.p-detail b{color:#9ca3af;font-weight:500}
+.section-label{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+.card{background:#111827;border:1px solid #1f2937;border-radius:14px;overflow:hidden;margin-bottom:20px}
+.row{display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;border-bottom:1px solid #1f2937}
+.row:last-child{border-bottom:none}
+.row-pos{font-size:12px;color:#6b7280;font-weight:500}
+.row-name{font-size:14px;color:#e5e7eb}
+.row-pts{font-size:14px;font-weight:600;color:#e2602a}
+.gen-row{display:grid;grid-template-columns:36px 1fr 70px 50px;align-items:center;padding:12px 16px;border-bottom:1px solid #1f2937}
+.gen-row:last-child{border-bottom:none}
+.gen-row.head{background:#0d1117;padding:8px 16px}
+.gen-head-label{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.08em}
+.gen-pts{text-align:right;font-size:14px;font-weight:600;color:#e2602a}
+.gen-sem{text-align:right;font-size:13px;color:#6b7280}
+.top3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px}
+.t3{background:#111827;border:1px solid #1f2937;border-radius:12px;padding:14px 8px;text-align:center}
+.t3.t3-1{border:1px solid #e2602a}
+.t3-medal{font-size:18px;margin-bottom:4px}
+.t3-name{font-size:13px;font-weight:600;color:#f3f4f6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:4px}
+.t3-pts{font-size:17px;font-weight:700;color:#e2602a}
+.t3-sem{font-size:11px;color:#6b7280;margin-top:2px}
+footer{text-align:center;font-size:11px;color:#4b5563;margin-top:32px;padding-top:16px;border-top:1px solid #1f2937}
+@media(max-width:360px){.p-detail{display:none}.p-pts{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">Corre<span>món</span> 2026</div>
+    <div class="tagline">Liga de running — resultados en vivo</div>
+  </header>
+  <div class="tabs">
+    <button class="tab active" onclick="show('semanal',this)">Esta semana</button>
+    <button class="tab" onclick="show('general',this)">Clasificación general</button>
+  </div>
+  <div class="section active" id="sec-semanal">
+    <div class="week-pill">Semana 13</div>
+    <div class="podium" id="podium-semanal"></div>
+    <div class="section-label">Resto de participantes</div>
+    <div class="card" id="resto-semanal"></div>
+  </div>
+  <div class="section" id="sec-general">
+    <div class="week-pill">Acumulado hasta semana 13</div>
+    <div class="top3" id="top3-general"></div>
+    <div class="section-label">Clasificación completa</div>
+    <div class="card">
+      <div class="gen-row head">
+        <span></span>
+        <span class="gen-head-label">Nombre</span>
+        <span class="gen-head-label" style="text-align:right">Puntos</span>
+        <span class="gen-head-label" style="text-align:right">Sem.</span>
+      </div>
+      <div id="gen-rows"></div>
+    </div>
+  </div>
+  <footer>Actualizado: 30 de marzo de 2026, 20:39 · Corremón 2026</footer>
+</div>
+<script>
+const DS=[];
+const DG=[];
+const M=['🥇','🥈','🥉'];
+const RC=['rank1','rank2','rank3'];
+function show(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');btn.classList.add('active');}
+const podio=DS.slice(0,3);
+document.getElementById('podium-semanal').innerHTML=[1,0,2].map(i=>{const f=podio[i];if(!f)return'';const comp=(f.Competicion&&f.Competicion!=='NO')?f.Competicion+'km carrera':'Sin carrera';return`<div class="p-card ${RC[i]}"><div class="p-medal">${M[i]}</div><div class="p-name">${f.Nombre}</div><div class="p-pts">${f.pts_totales_semana}</div><div class="p-pts-label">puntos</div><div class="p-detail"><b>${f.Kilometros}km</b> · <b>${f.Desnivel}m+</b><br>${f.Entrenes} entrenos<br>${comp}</div></div>`;}).join('');
+document.getElementById('resto-semanal').innerHTML=DS.slice(3).map((f,i)=>`<div class="row"><span class="row-pos">${i+4}º</span><span class="row-name">${f.Nombre}</span><span class="row-pts">${f.pts_totales_semana} pts</span></div>`).join('')||'<div class="row"><span class="row-name" style="color:#6b7280">No hay más participantes</span></div>';
+const top3=DG.slice(0,3);
+document.getElementById('top3-general').innerHTML=[1,0,2].map(i=>{const f=top3[i];if(!f)return'';return`<div class="t3 ${i===0?'t3-1':''}"><div class="t3-medal">${M[i]}</div><div class="t3-name">${f.Nombre}</div><div class="t3-pts">${f.totalPuntos}</div><div class="t3-sem">${f.semanasContadas} sem.</div></div>`;}).join('');
+document.getElementById('gen-rows').innerHTML=DG.map((f,i)=>`<div class="gen-row"><span class="row-pos">${i+1}º</span><span class="row-name">${f.Nombre}</span><span class="gen-pts">${f.totalPuntos}</span><span class="gen-sem">${f.semanasContadas}</span></div>`).join('');
+</script>
+</body>
+</html>
