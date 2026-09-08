@@ -1,102 +1,68 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Corremón 2026</title>
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"/>
+<title>Liga Corremon</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0a0a0a;color:#e5e7eb;min-height:100vh}
-.wrap{max-width:480px;margin:0 auto;padding:0 16px 40px}
-header{text-align:center;padding:28px 0 20px;border-bottom:1px solid #1f2937}
-.logo{font-size:26px;font-weight:700;color:#f9fafb;letter-spacing:-0.5px}
-.logo span{color:#e2602a}
-.tagline{font-size:13px;color:#6b7280;margin-top:4px}
-.tabs{display:flex;border-bottom:1px solid #1f2937}
-.tab{flex:1;padding:14px 0;font-size:14px;color:#6b7280;text-align:center;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none}
-.tab.active{color:#e2602a;border-bottom-color:#e2602a;font-weight:500}
-.section{display:none;padding-top:20px}
-.section.active{display:block}
-.week-pill{display:inline-block;background:#111827;border:1px solid #1f2937;border-radius:20px;font-size:12px;color:#9ca3af;padding:4px 12px;margin-bottom:18px}
-.podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px}
-.p-card{background:#111827;border:1px solid #1f2937;border-radius:14px;padding:16px 8px 14px;text-align:center}
-.p-card.rank1{border-top:2px solid #e2602a}
-.p-card.rank2{border-top:2px solid #6b7280}
-.p-card.rank3{border-top:2px solid #78350f}
-.p-medal{font-size:20px;margin-bottom:6px}
-.p-name{font-size:13px;font-weight:600;color:#f3f4f6;margin-bottom:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.p-pts{font-size:22px;font-weight:700;color:#e2602a;line-height:1}
-.p-pts-label{font-size:11px;color:#6b7280;margin-top:2px}
-.p-detail{font-size:11px;color:#6b7280;margin-top:10px;line-height:1.6;border-top:1px solid #1f2937;padding-top:8px}
-.p-detail b{color:#9ca3af;font-weight:500}
-.section-label{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
-.card{background:#111827;border:1px solid #1f2937;border-radius:14px;overflow:hidden;margin-bottom:20px}
-.row{display:grid;grid-template-columns:36px 1fr auto;align-items:center;padding:12px 16px;border-bottom:1px solid #1f2937}
-.row:last-child{border-bottom:none}
-.row-pos{font-size:12px;color:#6b7280;font-weight:500}
-.row-name{font-size:14px;color:#e5e7eb}
-.row-pts{font-size:14px;font-weight:600;color:#e2602a}
-.gen-row{display:grid;grid-template-columns:36px 1fr 70px 50px;align-items:center;padding:12px 16px;border-bottom:1px solid #1f2937}
-.gen-row:last-child{border-bottom:none}
-.gen-row.head{background:#0d1117;padding:8px 16px}
-.gen-head-label{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.08em}
-.gen-pts{text-align:right;font-size:14px;font-weight:600;color:#e2602a}
-.gen-sem{text-align:right;font-size:13px;color:#6b7280}
-.top3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px}
-.t3{background:#111827;border:1px solid #1f2937;border-radius:12px;padding:14px 8px;text-align:center}
-.t3.t3-1{border:1px solid #e2602a}
-.t3-medal{font-size:18px;margin-bottom:4px}
-.t3-name{font-size:13px;font-weight:600;color:#f3f4f6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:4px}
-.t3-pts{font-size:17px;font-weight:700;color:#e2602a}
-.t3-sem{font-size:11px;color:#6b7280;margin-top:2px}
-footer{text-align:center;font-size:11px;color:#4b5563;margin-top:32px;padding-top:16px;border-top:1px solid #1f2937}
-@media(max-width:360px){.p-detail{display:none}.p-pts{font-size:18px}}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <div class="logo">Corre<span>món</span> 2026</div>
-    <div class="tagline">Liga de running 2026— resultados en vivo</div>
-  </header>
-  <div class="tabs">
-    <button class="tab active" onclick="show('semanal',this)">Esta semana</button>
-    <button class="tab" onclick="show('general',this)">Clasificación general</button>
-  </div>
-  <div class="section active" id="sec-semanal">
-    <div class="week-pill">Semana 36</div>
-    <div class="podium" id="podium-semanal"></div>
-    <div class="section-label">Resto de participantes</div>
-    <div class="card" id="resto-semanal"></div>
-  </div>
-  <div class="section" id="sec-general">
-    <div class="week-pill">Acumulado hasta semana 36</div>
-    <div class="top3" id="top3-general"></div>
-    <div class="section-label">Clasificación completa</div>
-    <div class="card">
-      <div class="gen-row head">
-        <span></span>
-        <span class="gen-head-label">Nombre</span>
-        <span class="gen-head-label" style="text-align:right">Puntos</span>
-        <span class="gen-head-label" style="text-align:right">Sem.</span>
-      </div>
-      <div id="gen-rows"></div>
-    </div>
-  </div>
-  <footer>Actualizado: 06 de septiembre de 2026 a las 21:59 · Corremón 2026</footer>
+body{font-family:-apple-system,system-ui,sans-serif;margin:0;background:#0b0f14;color:#eee}
+.tabs{display:flex;justify-content:center;gap:8px;padding:16px;border-bottom:1px solid #222}
+.tab-btn{background:none;border:none;color:#aaa;font-size:15px;padding:8px 16px;cursor:pointer;border-bottom:2px solid transparent}
+.tab-btn.active{color:#fff;border-color:#e05}
+.tab-content{display:none;padding:16px}
+.tab-content.active{display:block}
+h1,h2{color:#fff}
+.podium-card{background:#161b22 !important;color:#eee}
+table{color:#eee}th{background:#1c222b !important;color:#eee}td,th{border-color:#2a313c !important}
+</style></head><body>
+<div class="tabs">
+  <button class="tab-btn active" onclick="mostrar('semanal')">Esta semana</button>
+  <button class="tab-btn" onclick="mostrar('general')">Clasificación general</button>
+</div>
+<div id="semanal" class="tab-content active">
+<h1>Clasificación semanal</h1><div class="week-tag">Semana 37</div>
+<h2>Podium</h2><div class="podium"><div class="podium-card podium-1">
+    <div class="medal">🥇</div>
+    <div class="name">1º Test Actual Top</div>
+    <div class="points">70 pts</div>
+    <div class="details">Km: 60 (20 pts) · Desnivel: 2000 (20 pts) · Entrenos: SI/SI (10 pts) · Carrera: 42 (20 pts)</div>
+  </div><div class="podium-card podium-2">
+    <div class="medal">🥈</div>
+    <div class="name">2º Test Actual Medio</div>
+    <div class="points">51 pts</div>
+    <div class="details">Km: 35 (18 pts) · Desnivel: 900 (18 pts) · Entrenos: SI/NO (5 pts) · Carrera: 12 (10 pts)</div>
+  </div><div class="podium-card podium-3">
+    <div class="medal">🥉</div>
+    <div class="name">3º Test Actual Sin Carrera</div>
+    <div class="points">32 pts</div>
+    <div class="details">Km: 20 (16 pts) · Desnivel: 400 (16 pts) · Entrenos: NO/NO (0 pts) · Carrera: NO (0 pts)</div>
+  </div></div>
+<h2>Resto de participantes</h2>
+<p>No hay más participantes esta semana.</p>
+</div>
+<div id="general" class="tab-content">
+<h1>Clasificación general</h1><div class="week-tag">Acumulado hasta semana 37</div>
+<h2>Podium</h2><div class="podium"><div class="podium-card podium-1">
+    <div class="medal">🥇</div>
+    <div class="name">1º Test Atrasada Top</div>
+    <div class="points">90 pts</div>
+    <div class="details">1 semanas contadas</div>
+  </div><div class="podium-card podium-2">
+    <div class="medal">🥈</div>
+    <div class="name">2º Test Actual Top</div>
+    <div class="points">70 pts</div>
+    <div class="details">1 semanas contadas</div>
+  </div><div class="podium-card podium-3">
+    <div class="medal">🥉</div>
+    <div class="name">3º Test Atrasada Medio</div>
+    <div class="points">67 pts</div>
+    <div class="details">1 semanas contadas</div>
+  </div></div>
+<h2>Resto de participantes</h2>
+<table><thead><tr><th>Pos</th><th>Nombre</th><th>Puntos</th><th>Semanas</th></tr></thead><tbody><tr><td>4º</td><td>Test MuyAtrasada</td><td>65</td><td>1</td></tr><tr><td>5º</td><td>Pepe Arcos</td><td>60</td><td>1</td></tr><tr><td>6º</td><td>Test Actual Medio</td><td>51</td><td>1</td></tr><tr><td>7º</td><td>Test SinCompeticion</td><td>46</td><td>1</td></tr><tr><td>8º</td><td>Test Actual Sin Carrera</td><td>32</td><td>1</td></tr></tbody></table>
 </div>
 <script>
-const DS=[{"posicion":1,"Nombre":"carlosgarciatrail","Kilometros":77.93,"pts_kms":18,"Desnivel":5656,"pts_desnivel":18,"Entrenes":"NO/NO","pts_entrenos":0,"Competicion":"50","pts_carrera":20,"pts_totales_semana":56},{"posicion":2,"Nombre":"Jorgetzu","Kilometros":234.2,"pts_kms":20,"Desnivel":16172,"pts_desnivel":20,"Entrenes":"NO/NO","pts_entrenos":0,"Competicion":"NO","pts_carrera":0,"pts_totales_semana":40},{"posicion":3,"Nombre":"PepeArcos","Kilometros":43,"pts_kms":16,"Desnivel":989,"pts_desnivel":16,"Entrenes":"NO/NO","pts_entrenos":0,"Competicion":"NO","pts_carrera":0,"pts_totales_semana":32},{"posicion":4,"Nombre":"ToniReMo","Kilometros":21.37,"pts_kms":14,"Desnivel":375,"pts_desnivel":12,"Entrenes":"SI/NO","pts_entrenos":5,"Competicion":"NO","pts_carrera":0,"pts_totales_semana":31},{"posicion":5,"Nombre":"Laura Mirasol","Kilometros":17.56,"pts_kms":12,"Desnivel":666,"pts_desnivel":14,"Entrenes":"NO/NO","pts_entrenos":0,"Competicion":"NO","pts_carrera":0,"pts_totales_semana":26},{"posicion":6,"Nombre":"JmgForner","Kilometros":13.54,"pts_kms":10,"Desnivel":244,"pts_desnivel":10,"Entrenes":"NO/NO","pts_entrenos":0,"Competicion":"NO","pts_carrera":0,"pts_totales_semana":20}];
-const DG=[{"posicion":1,"Nombre":"carlostrailrun","totalPuntos":1474,"semanasContadas":36},{"posicion":2,"Nombre":"Jorgetzu","totalPuntos":1043,"semanasContadas":32},{"posicion":3,"Nombre":"Fermin Garat","totalPuntos":959,"semanasContadas":29},{"posicion":4,"Nombre":"JmgForner","totalPuntos":888,"semanasContadas":29},{"posicion":5,"Nombre":"Lisi","totalPuntos":785,"semanasContadas":34},{"posicion":6,"Nombre":"LuisPas","totalPuntos":681,"semanasContadas":25},{"posicion":7,"Nombre":"ToniReMo","totalPuntos":665,"semanasContadas":33},{"posicion":8,"Nombre":"PepeArcos","totalPuntos":509,"semanasContadas":31},{"posicion":9,"Nombre":"Jaime F. Palomares","totalPuntos":500,"semanasContadas":23},{"posicion":10,"Nombre":"Yariholzer","totalPuntos":474,"semanasContadas":18},{"posicion":11,"Nombre":"Laura Mirasol","totalPuntos":329,"semanasContadas":28},{"posicion":12,"Nombre":"Roberto","totalPuntos":289,"semanasContadas":14},{"posicion":13,"Nombre":"Mountainrafa","totalPuntos":217,"semanasContadas":26},{"posicion":14,"Nombre":"CarlosSanchezSanchez","totalPuntos":203,"semanasContadas":27},{"posicion":15,"Nombre":"Roberto Herrera","totalPuntos":144,"semanasContadas":8},{"posicion":16,"Nombre":"Ana MG","totalPuntos":131,"semanasContadas":23},{"posicion":17,"Nombre":"HectorTomasLopez","totalPuntos":94,"semanasContadas":7},{"posicion":18,"Nombre":"Carlus","totalPuntos":90,"semanasContadas":10},{"posicion":19,"Nombre":"SusanaGCH","totalPuntos":62,"semanasContadas":5},{"posicion":20,"Nombre":"Pabloforo","totalPuntos":30,"semanasContadas":8},{"posicion":21,"Nombre":"KevinRevert","totalPuntos":27,"semanasContadas":4},{"posicion":22,"Nombre":"miguelrodriguezsanchez","totalPuntos":24,"semanasContadas":1},{"posicion":23,"Nombre":"Pauelife","totalPuntos":14,"semanasContadas":5},{"posicion":24,"Nombre":"Silvia Sánchez","totalPuntos":4,"semanasContadas":2}];
-const M=['🥇','🥈','🥉'];
-const RC=['rank1','rank2','rank3'];
-function show(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');btn.classList.add('active');}
-const podio=DS.slice(0,3);
-document.getElementById('podium-semanal').innerHTML=[1,0,2].map(i=>{const f=podio[i];if(!f)return'';const comp=(f.Competicion&&f.Competicion!=='NO')?f.Competicion+'km carrera':'Sin carrera';return`<div class="p-card ${RC[i]}"><div class="p-medal">${M[i]}</div><div class="p-name">${f.Nombre}</div><div class="p-pts">${f.pts_totales_semana}</div><div class="p-pts-label">puntos</div><div class="p-detail"><b>${f.Kilometros}km</b> · <b>${f.Desnivel}m+</b><br>${f.Entrenes} entrenos<br>${comp}</div></div>`;}).join('');
-document.getElementById('resto-semanal').innerHTML=DS.slice(3).map((f,i)=>`<div class="row"><span class="row-pos">${i+4}º</span><span class="row-name">${f.Nombre}</span><span class="row-pts">${f.pts_totales_semana} pts</span></div>`).join('')||'<div class="row"><span class="row-name" style="color:#6b7280">No hay más participantes</span></div>';
-const top3=DG.slice(0,3);
-document.getElementById('top3-general').innerHTML=[1,0,2].map(i=>{const f=top3[i];if(!f)return'';return`<div class="t3 ${i===0?'t3-1':''}"><div class="t3-medal">${M[i]}</div><div class="t3-name">${f.Nombre}</div><div class="t3-pts">${f.totalPuntos}</div><div class="t3-sem">${f.semanasContadas} sem.</div></div>`;}).join('');
-document.getElementById('gen-rows').innerHTML=DG.map((f,i)=>`<div class="gen-row"><span class="row-pos">${i+1}º</span><span class="row-name">${f.Nombre}</span><span class="gen-pts">${f.totalPuntos}</span><span class="gen-sem">${f.semanasContadas}</span></div>`).join('');
+function mostrar(id) {
+  document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
 </script>
-</body>
-</html>
+</body></html>
